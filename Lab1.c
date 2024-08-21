@@ -6,17 +6,28 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-// Estrutura para passar múltiplos argumentos para a função da thread
+// Estrutura que será usada para passar o vetor e o id da thread
 typedef struct {
     int *vector;
-    int start;
-    int end;
+    int id;
+    int N;
+    int M;
 } ThreadData;
 
 // Função executada pelas threads
 void *increment_elements(void *arg) {
     ThreadData *data = (ThreadData *)arg;
-    for (int i = data->start; i < data->end; i++) {
+    int id = data->id;
+    int N = data->N;
+    int M = data->M;
+    int elements_per_thread = N / M;
+    int remainder = N % M;
+
+    // Calcular a faixa de trabalho da thread
+    int start = id * elements_per_thread + (id < remainder ? id : remainder);
+    int end = start + elements_per_thread + (id < remainder ? 1 : 0);
+
+    for (int i = start; i < end; i++) {
         data->vector[i] += 1;
     }
     pthread_exit(NULL);
@@ -31,18 +42,13 @@ void initialize_vector(int *vector, int N) {
 
 // Função para verificar se o resultado está correto
 void check_result(int *vector, int N) {
-    int correct = 1;
     for (int i = 0; i < N; i++) {
         if (vector[i] != i + 1) {
-            correct = 0;
-            break;
+            printf("Erro na posição %d: esperado %d, mas encontrou %d\n", i, i + 1, vector[i]);
+            return;
         }
     }
-    if (correct) {
-        printf("Resultado correto!\n");
-    } else {
-        printf("Erro no resultado.\n");
-    }
+    printf("Resultado correto!\n");
 }
 
 int main(int argc, char *argv[]) {
@@ -61,21 +67,13 @@ int main(int argc, char *argv[]) {
     // Inicializar o vetor
     initialize_vector(vector, N);
 
-    // Dividir a carga de trabalho entre as threads
-    int elements_per_thread = N / M;
-    int remainder = N % M;
-
-    int start = 0;
+    // Criar e executar as threads
     for (int i = 0; i < M; i++) {
-        int end = start + elements_per_thread + (i < remainder ? 1 : 0);
-
         thread_data[i].vector = vector;
-        thread_data[i].start = start;
-        thread_data[i].end = end;
-
+        thread_data[i].id = i;
+        thread_data[i].N = N;
+        thread_data[i].M = M;
         pthread_create(&threads[i], NULL, increment_elements, (void *)&thread_data[i]);
-
-        start = end;
     }
 
     // Esperar todas as threads terminarem
@@ -93,4 +91,3 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
-
