@@ -129,9 +129,9 @@ int main(int argc, char *argv[]) {
     ret = fread(&prod_ori, sizeof(double), 1, arq);
 
     // Imprime os resultados
-    printf("\nProduto interno (concorrente) = %.26f\n", prod_conc);
-    printf("Produto interno (sequencial)  = %.26lf\n", prod_ori);
-    printf("Variação relativa             = %.26lf\n", varRel(prod_ori, prod_conc));
+    printf("\nProduto interno (concorrente) = %.20f\n", prod_conc);
+    printf("Produto interno (sequencial)  = %.20lf\n", prod_ori);
+    printf("Variação relativa             = %.20lf\n", varRel(prod_ori, prod_conc));
 
     // Desaloca os espaços de memória
     free(vet);
