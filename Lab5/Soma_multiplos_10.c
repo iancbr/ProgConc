@@ -1,3 +1,7 @@
+// Ian de Andrade Camargo
+// DRE_118089205
+// Laboratório 5
+
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
