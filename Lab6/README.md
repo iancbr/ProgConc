@@ -11,5 +11,6 @@ Para compilar o código, basta usar o seguinte comando 'gcc -o main list_int.c a
 
 Prints do log:
 
-![log2](https://github.com/user-attachments/assets/849df2b0-2d59-4e41-9688-d154f28a398d)
 ![log1](https://github.com/user-attachments/assets/a862bda5-fb3d-4a05-8840-edda7af1c281)
+![log2](https://github.com/user-attachments/assets/849df2b0-2d59-4e41-9688-d154f28a398d)
+
