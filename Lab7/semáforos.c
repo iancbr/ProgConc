@@ -1,6 +1,6 @@
 // Ian de Andrade Camargo
 // DRE_118089205
-// Laboratório 6 
+// Laboratório 7 
 
 #include <pthread.h>
 #include <semaphore.h>
