@@ -48,7 +48,7 @@ func main() {
 	msg = <-str
 	fmt.Println("[Main]", msg)
 
-	str <- "pode termina!"
+	str <- "pode fechar!"
 	msg = <-str
 	fmt.Println("[Main]", "Finalizando")
 
