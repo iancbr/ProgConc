@@ -31,7 +31,7 @@ func tarefa(str chan string) {
 	msg = <-str
 	// goroutine finaliza
 	fmt.Println("[Goroutine]", "Finalizando")
-	str <- "finalizei"
+	str <- "fim"
 }
 
 func main() {
